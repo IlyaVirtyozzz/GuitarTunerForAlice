@@ -1,5 +1,6 @@
 import logging
 import json
+import os
 from copy import deepcopy
 from random import choice, shuffle
 from flask import Flask, request
@@ -128,6 +129,7 @@ def handle_dialog(res, req):
             res['response']['end_session'] = True
         else:
             res['response']['text'] = 'Ты чё несёшь'
+            add_wtf(f"{game_info['state']}. req['request']['original_utterance']")
 
     add_default_buttons(res, req)
 
@@ -161,3 +163,8 @@ def add_default_buttons(res, req):
         button_dict = {'title': button, 'hide': True}
         if button_dict not in res['response']['buttons']:
             res['response']['buttons'].append(button_dict)
+
+
+def add_wtf(text):
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wtf.txt'), 'a', encoding='utf8') as file:
+        file.write(text + '\n')
