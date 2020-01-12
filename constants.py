@@ -9,7 +9,7 @@ REPEATS = 2
 GUITARS = [
     {
         'name': 'Акустическая',
-        'icon': '1533899/8cbbe21a32aca1972c9d',
+        'icon': '1540737/23b00d9bdd4b2395e136',
         'state': STATE_ACOUSTIC,
         'strings': {
             '1': 'bb98b72a-903e-466f-82fe-7d20d0360ea2',
@@ -22,7 +22,7 @@ GUITARS = [
     },
     {
         'name': 'Классическая',
-        'icon': '965417/2b3ff6d7831b5902fcd7',
+        'icon': '965417/101d75438fa0011c3970',
         'state': STATE_CLASSIC,
         'strings': {
             '1': '1821f77f-b05f-42ef-9c0d-840833a5e67e',
@@ -35,7 +35,7 @@ GUITARS = [
     },
     {
         'name': 'Бас-гитара',
-        'icon': '1521359/ede44a822886ffaab519',
+        'icon': '1030494/460090bc4b67fdf54c35',
         'state': STATE_BAS,
         'strings': {
             '1': 'a97950b6-a1a3-48c5-9db5-c4e20b269dc6',
@@ -46,7 +46,7 @@ GUITARS = [
     },
     {
         'name': 'Электрогитара',
-        'icon': '1540737/e8465bb25eb2f8359792',
+        'icon': '1521359/25d949011b6ccd7a643b',
         'state': STATE_ELECTRO,
         'strings': {
             '1': '6d861940-861b-4644-b9c0-ed7256f0ebb4',
