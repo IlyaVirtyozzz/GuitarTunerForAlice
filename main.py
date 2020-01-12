@@ -129,7 +129,7 @@ def handle_dialog(res, req):
             res['response']['text'] = 'Пока'
             res['response']['end_session'] = True
         else:
-            res['response']['text'] = 'Ты чё несёшь'
+            res['response']['text'] = choice(WTF) + ' Попробуйте ещё раз или скажите "Помощь".'
             add_wtf(f"{game_info['state']}. {req['request']['original_utterance']}")
 
     add_default_buttons(res, req)
@@ -169,3 +169,7 @@ def add_default_buttons(res, req):
 def add_wtf(text):
     with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wtf.txt'), 'a', encoding='utf8') as file:
         file.write(text + '\n')
+
+
+WTF = ['Не поняла', 'Мои нейроны Вас не понимают', 'Извините, я Вас не поняла',
+       'Моя твоя не понимать', 'Я Вас не ферштэйн', 'Извините, я вас не понимаю']
