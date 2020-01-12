@@ -11,6 +11,16 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 sessionStorage = {}
 
+CHOICE_DICT = {
+    1: ['1', 'один', 'первый', 'первая', 'первое', 'первые', 'раз', 'однёрка'],
+    2: ['2', 'два', 'второй', 'вторая', 'второе', 'вторые', 'двойка'],
+    3: ['3', 'три', 'третий', 'третья', 'третье', 'третьи', 'тройка'],
+    4: ['4', 'четыре', 'четвёртый', 'четвёртая', 'четвёртое', 'четвёртые', 'четвёрка',
+          'четвертый', 'четвертая', 'четвертое', 'четверка', 'четвертые'],
+    5: ['5', 'пять', 'пятый', 'пятая', 'пятое', 'пятые', 'пятёрка', 'пятерка'],
+    6: ['6', 'шестёрка', 'шесть', 'шестой', 'шестая', 'шестое', 'шаха', 'шест']
+}
+
 
 @app.route('/post', methods=['POST'])
 def main():
@@ -84,6 +94,31 @@ def handle_dialog(res, req):
             res['response']['text'] = 'Текст помощи'
         elif any(word in tokens for word in ['умеешь', 'можешь']):
             res['response']['text'] = 'Что я умею'
+        elif STATE_ACOUSTIC <= game_info['state'] <= STATE_ELECTRO:
+            flag = 0
+            for i in CHOICE_DICT:
+                if any(word in tokens for word in CHOICE_DICT[i]):
+                    flag = i
+                    break
+
+            if flag:
+                game_info['string'] = flag
+                res['response']['text'] = f'Воспроизвожу звук {flag} струны.'
+                res['response']['tts'] = '<speaker audio="dialogs-upload/f3258314-b2a4-4dfd-92bc-ffe1d6b71de4/{}.opus">'\
+                    .format(GUITARS[game_info["state"] - 1]["strings"][str(flag)]) * REPEATS
+            else:
+                if 'string' in game_info and any(word in req['request']['nlu']['tokens'] for word in
+                        ['еще', 'ещё', 'повтори', 'повтори-ка',
+                        'повтор', 'понял', 'слышал', 'услышал',
+                        'расслышал', 'прослушал', 'скажи', 'а']):
+                    i = game_info['string']
+                    res['response']['text'] = f'Воспроизвожу звук {i} струны.'
+                    res['response'][
+                        'tts'] = '<speaker audio="dialogs-upload/f3258314-b2a4-4dfd-92bc-ffe1d6b71de4/{}.opus">' \
+                                     .format(GUITARS[game_info["state"] - 1]["strings"][str(i)]) * REPEATS
+                else:
+                    res['response']['text'] = f'Выберите струну'
+
         elif any(word in tokens for word in [
             'выход', 'хватит', 'пока', 'свидания', 'стоп', 'выйти',
             'выключи', 'останови', 'остановить', 'отмена', 'закончить',
@@ -98,7 +133,9 @@ def handle_dialog(res, req):
 
 
 def show_guitar(res, game_info):
-    res['response']['text'] = 'Выбери струну'
+    res['response']['text'] = 'Выберите струну.'
+    if 'string' in game_info:
+        game_info.pop('string')
     for guitar in GUITARS:
         if guitar['state'] == game_info['state']:
             res['response']['buttons'] = [
