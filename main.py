@@ -3,8 +3,8 @@ import json
 from copy import deepcopy
 from random import choice, shuffle
 from flask import Flask, request
-from cards import GUITARS, get_menu_card
-from states import *
+from cards import get_menu_card
+from constants import *
 
 
 app = Flask(__name__)
