@@ -119,6 +119,7 @@ def handle_dialog(res, req):
                                      .format(GUITARS[game_info["state"] - 1]["strings"][str(i)]) * REPEATS
                 else:
                     res['response']['text'] = f'Выберите струну'
+                    add_wtf(f"{game_info['state']}. {req['request']['original_utterance']}")
 
         elif any(word in tokens for word in [
             'выход', 'хватит', 'пока', 'свидания', 'стоп', 'выйти',
@@ -129,7 +130,7 @@ def handle_dialog(res, req):
             res['response']['end_session'] = True
         else:
             res['response']['text'] = 'Ты чё несёшь'
-            add_wtf(f"{game_info['state']}. req['request']['original_utterance']")
+            add_wtf(f"{game_info['state']}. {req['request']['original_utterance']}")
 
     add_default_buttons(res, req)
 
