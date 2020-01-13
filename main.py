@@ -108,7 +108,7 @@ def handle_dialog(res, req):
             if flag:
                 game_info['string'] = flag
                 res['response']['text'] = f'Воспроизвожу звук {flag} струны.'
-                res['response']['tts'] = '<speaker audio="dialogs-upload/f3258314-b2a4-4dfd-92bc-ffe1d6b71de4/{}.opus">' \
+                res['response']['tts'] = '<speaker audio="dialogs-upload/8cbedd63-d325-43c8-aaf3-b3cf22d39b5f/{}.opus">' \
                                              .format(GUITARS[game_info["state"] - 1]["strings"][str(flag)]) * REPEATS
             else:
                 if 'string' in game_info and any(word in req['request']['nlu']['tokens'] for word in
@@ -118,7 +118,7 @@ def handle_dialog(res, req):
                     i = game_info['string']
                     res['response']['text'] = f'Воспроизвожу звук {i} струны.'
                     res['response'][
-                        'tts'] = '<speaker audio="dialogs-upload/f3258314-b2a4-4dfd-92bc-ffe1d6b71de4/{}.opus">' \
+                        'tts'] = '<speaker audio="dialogs-upload/8cbedd63-d325-43c8-aaf3-b3cf22d39b5f/{}.opus">' \
                                      .format(GUITARS[game_info["state"] - 1]["strings"][str(i)]) * REPEATS
                 else:
                     res['response']['text'] = f'Выберите струну'
