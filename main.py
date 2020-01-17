@@ -122,6 +122,8 @@ def handle_dialog(res, req):
                                      .format(GUITARS[game_info["state"] - 1]["strings"][str(i)]) * REPEATS
                 else:
                     res['response']['text'] = f'Выберите струну'
+                    res['response']['tts'] = 'Выберите струну от 1 до {}. Первая - самая нижняя'.format(
+                        4 if game_info['state'] == STATE_BAS else 6)
                     add_wtf(f"{game_info['state']}. {req['request']['original_utterance']}")
 
         elif any(word in tokens for word in [
@@ -140,6 +142,8 @@ def handle_dialog(res, req):
 
 def show_guitar(res, game_info):
     res['response']['text'] = 'Выберите струну.'
+    res['response']['tts'] = 'Выберите струну от 1 до {}. Первая - самая нижняя'.format(
+        4 if game_info['state'] == STATE_BAS else 6)
     if 'string' in game_info:
         game_info.pop('string')
     for guitar in GUITARS:
